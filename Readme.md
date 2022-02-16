@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Виктория Штырева](https://up.htmlacademy.ru/javascript/25/user/1867789).
-* Наставник: `Неизвестно`.
+* Наставник: [Владислав Доровлев](https://htmlacademy.ru/profile/dorovlev).
 
 ---
 
