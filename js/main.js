@@ -6,3 +6,4 @@ import './form-data.js';
 import './picture.js';
 import './filter-picture.js';
 import './tags.js';
+import './big-picture.js';

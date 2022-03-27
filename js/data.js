@@ -29,12 +29,12 @@ const USER_NAME = [
 let ID = 1;
 const OBJECTS_COUNT = 25;
 
-const CREATE_COMMENTS = () => ({
+const CREATE_COMMENTS = () => ([{
   id: getRandomPositiveInteger(1,500),
   avatar: `img/avatar-${getRandomPositiveInteger(1,6)}.svg`,
   message: getRandomArrayElement(COMMENTS_TEXT),
   name: getRandomArrayElement(USER_NAME),
-});
+}]);
 
 const createNewObject = () => {
   const currentID = ID++;
@@ -48,5 +48,5 @@ const createNewObject = () => {
 };
 
 const getNewObjects = () => Array.from({length: OBJECTS_COUNT}, createNewObject);
-
-export {getNewObjects};
+const dataPhotos = getNewObjects();
+export {dataPhotos};
