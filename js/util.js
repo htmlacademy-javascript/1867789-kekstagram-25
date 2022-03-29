@@ -20,4 +20,6 @@ function controlComment (commentFieldText) {
 }
 controlComment ('i love cats');
 
-export {getRandomPositiveInteger, getRandomArrayElement};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomPositiveInteger, getRandomArrayElement, isEscapeKey};
