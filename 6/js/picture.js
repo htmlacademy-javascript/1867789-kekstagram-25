@@ -16,7 +16,11 @@ newPicture.forEach(({url, likes, comments}) => {
 });
 picture.appendChild(newPictureFragment);
 
-picture.addEventListener('click', () => {
-  openFullView();
+// Открывает большую картинку по клику на миниатюру
+picture.addEventListener('click', (evt) => {
+  if (evt.target.className === 'picture__img') {
+    const i = evt.target.id;
+    openFullView(i);
+  }
 });
 
