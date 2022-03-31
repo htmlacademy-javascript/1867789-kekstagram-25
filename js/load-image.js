@@ -32,6 +32,7 @@ const onOverlayClose = () => {
   imageEditing.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
+
 // Cоздание события для закрытия формы
 uploadCancel.addEventListener('click', (evt) => {
   onOverlayClose(evt);
