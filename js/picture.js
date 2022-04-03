@@ -7,7 +7,7 @@ const newPicture = dataPhotos;
 // Шаблон для фотографии пользователя
 const newPictureFragment = document.createDocumentFragment();
 // Генерация данных с url, likes, comment
-const createPicture = (photo) => {
+const createPicture = () => {
   newPicture.forEach(({url, likes, comments}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = url;
@@ -17,7 +17,7 @@ const createPicture = (photo) => {
 
     pictureElement.addEventListener('click', (evt) => {
       evt.preventDefault();
-      showBigPhoto(photo);
+      showBigPhoto();
     });
   });
   picture.appendChild(newPictureFragment);
@@ -25,3 +25,4 @@ const createPicture = (photo) => {
 
 // Создание картинки используя массив данных из data.js
 createPicture(newPicture);
+window.console.log(createPicture(newPicture));

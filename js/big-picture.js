@@ -57,8 +57,8 @@ const createDataBigPicture = (photo) => {
 };
 
 // Просмотр полноразмерного изображения
-const showBigPhoto = (photo) => {
-  createDataBigPicture(photo);
+const showBigPhoto = () => {
+  createDataBigPicture();
   openFullView();
 };
 
