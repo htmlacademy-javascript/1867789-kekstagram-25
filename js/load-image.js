@@ -1,40 +1,52 @@
 import {isEscapeKey} from './util.js';
+import {onFormValidation} from './form-validation.js';
 
+const form = document.querySelector('.img-upload__form');
 const uploadFile = document.querySelector('#upload-file');
 const imageEditing = document.querySelector('.img-upload__overlay');
+const textHashtags = document.querySelector('.text__hashtags');
+const comments = document.querySelector('.text__description');
 const body = document.querySelector('body');
 const uploadCancel = document.querySelector('#upload-cancel');
 
-const onPopupEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    // eslint-disable-next-line no-use-before-define
-    onOverlayOpen();
-    // eslint-disable-next-line no-use-before-define
-    onOverlayClose();
-  }
-};
-// Открытие формы редактирования изображения
+// Функция для открытия формы редактирования изображения
 const onOverlayOpen = () => {
   imageEditing.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', onPopupEscKeydown);
 };
-// Cоздание события для открытия формы
-uploadFile.addEventListener('click', (evt) => {
-  if (!imageEditing.classList.contains('hidden')) {
-    evt.preventDefault();
-  }
-});
+
 // Закрытие формы
 const onOverlayClose = () => {
-  body.classList.remove('modal-open');
   imageEditing.classList.add('hidden');
-  document.removeEventListener('keydown', onPopupEscKeydown);
+  body.classList.remove('modal-open');
+  form.reset();
 };
-// Cоздание события для закрытия формы
-uploadCancel.addEventListener('click', (evt) => {
-  onOverlayClose(evt);
-});
+
+// если фокус находится в поле ввода хэш-тега,
+// нажатие на Esc не должно приводить к закрытию формы редактирования изображения.
+const onPopupeEscPress = (evt) =>{
+  if(isEscapeKey(evt) && evt.target !== textHashtags && evt.target !== comments) {
+    evt.preventDefault();
+    onOverlayClose(onPopupeEscPress);
+  }
+};
+
+// Cоздание функции для закрытия формы
+const onCancelClick = () => {
+  onOverlayClose(onPopupeEscPress);
+};
+
 // Открытие формы
-uploadFile.addEventListener('change', onOverlayOpen);
+const imageUploud = () => {
+  onOverlayOpen();
+  body.addEventListener ('keydown', onPopupeEscPress);
+  uploadCancel.addEventListener('click', onCancelClick);
+};
+
+// Загрузка файла и проверка на валидность формы
+const uploudFileImage = () => {
+  uploadFile.addEventListener('change', imageUploud);
+  onFormValidation();
+};
+
+export {uploudFileImage};
