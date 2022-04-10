@@ -8,21 +8,21 @@ const newPicture = dataPhotos;
 const newPictureFragment = document.createDocumentFragment();
 // Генерация данных с url, likes, comment
 const createPicture = () => {
-  newPicture.forEach(({url, likes, comments}) => {
+  newPicture.forEach((photo) => {
     const pictureElement = pictureTemplate.cloneNode(true);
-    pictureElement.querySelector('.picture__img').src = url;
-    pictureElement.querySelector('.picture__likes').textContent = likes;
-    pictureElement.querySelector('.picture__comments').textContent = comments.length;
-    newPictureFragment.appendChild(pictureElement);
-
+    pictureElement.querySelector('.picture__img').src = photo.url;
+    pictureElement.querySelector('.picture__likes').textContent = photo.likes;
+    pictureElement.querySelector('.picture__comments').textContent = photo.comments.length;
     pictureElement.addEventListener('click', (evt) => {
       evt.preventDefault();
-      showBigPhoto();
+      showBigPhoto(photo);
     });
+    newPictureFragment.appendChild(pictureElement);
   });
   picture.appendChild(newPictureFragment);
 };
 
+
 // Создание картинки используя массив данных из data.js
-createPicture(newPicture);
-window.console.log(createPicture(newPicture));
+createPicture();
+

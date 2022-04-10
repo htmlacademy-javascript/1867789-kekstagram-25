@@ -1,6 +1,6 @@
 const form = document.querySelector('.img-upload__form');
-const textHashtags = document.querySelector('.text__hashtags');
-const comments = document.querySelector('.text__description');
+const textHashtags = form.querySelector('.text__hashtags');
+const comments = form.querySelector('.text__description');
 const MAX_SYMBOLS = 140;
 
 const pristine = new Pristine(form, {
@@ -37,6 +37,7 @@ const duplicatHashtags = (value) => {
 
 pristine.addValidator(textHashtags, duplicatHashtags, 'Один и тот же хэш-тег не может быть использован дважды');
 
+// Максимальная длинаа комментариев
 const validateComments = () => comments.length <= MAX_SYMBOLS;
 
 pristine.addValidator(comments, validateComments, 'Длина комментария не может составлять больше 140 символов');
