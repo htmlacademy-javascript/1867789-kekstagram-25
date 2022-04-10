@@ -24,22 +24,22 @@ const onOverlayClose = () => {
 
 // если фокус находится в поле ввода хэш-тега,
 // нажатие на Esc не должно приводить к закрытию формы редактирования изображения.
-const onPopupeEscPress = (evt) =>{
+const onImageEscPress = (evt) =>{
   if(isEscapeKey(evt) && evt.target !== textHashtags && evt.target !== comments) {
     evt.preventDefault();
-    onOverlayClose(onPopupeEscPress);
+    onOverlayClose(onImageEscPress);
   }
 };
 
 // Cоздание функции для закрытия формы
 const onCancelClick = () => {
-  onOverlayClose(onPopupeEscPress);
+  onOverlayClose(onImageEscPress);
 };
 
 // Открытие формы
 const imageUploud = () => {
   onOverlayOpen();
-  body.addEventListener ('keydown', onPopupeEscPress);
+  body.addEventListener('keydown', onImageEscPress);
   uploadCancel.addEventListener('click', onCancelClick);
 };
 
@@ -49,4 +49,4 @@ const uploudFileImage = () => {
   onFormValidation();
 };
 
-export {uploudFileImage};
+uploudFileImage();
