@@ -13,6 +13,7 @@ const getRandomArrayElement = (elements) => (
 // Функция для проверки максимальной длины строки
 const getLength = (stringChecked, maxLength) => stringChecked.length <= maxLength;
 
+// Функция Esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 // Показ сообщения об отправке с ошибкой на 5 секунд

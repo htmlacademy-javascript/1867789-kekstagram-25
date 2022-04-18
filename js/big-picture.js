@@ -1,7 +1,6 @@
 import {isEscapeKey} from './util.js';
 
 const MAX_COMMENTS_COUNT = 5;
-
 const bigPicture = document.querySelector('.big-picture');
 const bodyContainer = document.querySelector('body');
 const userModalCloseElement = document.querySelector('.big-picture__cancel');
