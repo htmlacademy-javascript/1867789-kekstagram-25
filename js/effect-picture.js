@@ -90,18 +90,19 @@ noUiSlider.create(sliderElement, {
 });
 
 effectsList.addEventListener('change', (evt) => {
-  const effect = evt.target.value;
-  const effectFilter = effects[effect];
-  image.className = `effects effects__preview--${effect}`;
-  sliderElement.noUiSlider.updateOptions(effectFilter);
-  if (effect === 'none') {
-    image.style.filter = '';
-    effectsLevel.classList.add('hidden');
-  } else {
-    effectsLevel.classList.remove('hidden');
+  if (evt.target.matches('.effects__radio')) {
+    const effect = evt.target.value;
+    const effectFilter = effects[effect];
+    sliderElement.noUiSlider.updateOptions(effectFilter);
+    if (effect === 'none') {
+      image.style.filter = '';
+      effectsLevel.classList.add('hidden');
+    } else {
+      effectsLevel.classList.remove('hidden');
+    }
+    sliderElement.noUiSlider.on('update', () => {
+      valueSliderElement.value = sliderElement.noUiSlider.get();
+      image.style.filter = `${effectFilter.filter}(${valueSliderElement.value}${effectFilter.sign})`;
+    });
   }
-  sliderElement.noUiSlider.on('update', () => {
-    valueSliderElement.value = sliderElement.noUiSlider.get();
-    image.style.filter = `${effectFilter.filter}(${valueSliderElement.value}${effectFilter.sign})`;
-  });
 });

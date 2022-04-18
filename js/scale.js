@@ -5,11 +5,7 @@ const scaleInput = scale.querySelector('.scale__control--value');
 const imagePreview = document.querySelector ('.img-upload__preview');
 const MAX_VALUE = 100;
 const MIN_VALUE = 25;
-const DEFAULT_VALUE = 100;
 const VALUE_STEP = 25;
-
-//  Установка значения масштаба по умолчанию на 100%
-scaleInput.value = `${DEFAULT_VALUE}%`;
 
 // Уменьшение масштаба
 const reduceImage = () => {
