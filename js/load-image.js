@@ -48,6 +48,7 @@ const onOverlayOpen = () => {
 };
 // Обработчик на открытие окна редактирования
 const openImageEdit = () => {onOverlayOpen();};
+
 // Загрузка файла
 const uploudFileImage = () => {
   uploadFile.addEventListener('change', openImageEdit);
@@ -91,12 +92,12 @@ const closeSuccessMessage = () => {
 // Разблокировка и блокировка кнопок отправки
 const unblockSubmitButton = () => {
   uploadButton.disabled = false;
-  uploadButton.textContent = 'Сохранить';
+  uploadButton.textContent = 'Опубликовать';
 };
 
 const blockSubmitButton = () => {
   uploadButton.disabled = true;
-  uploadButton.textContent = 'Сохраняю...';
+  uploadButton.textContent = 'В процессе публикации...';
 };
 
 // Обработчик на закрытие об успешной отправки формы
