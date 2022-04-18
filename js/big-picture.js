@@ -1,8 +1,6 @@
 import {isEscapeKey} from './util.js';
 
 const MAX_COMMENTS_COUNT = 5;
-let commentData = [];
-let commentsData = [];
 
 const bigPicture = document.querySelector('.big-picture');
 const bodyContainer = document.querySelector('body');
@@ -15,6 +13,8 @@ const socialCaption = document.querySelector('.social__caption');
 const socialComments = document.querySelector('.social__comments');
 const socialCommentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
+let commentData = [];
+let commentsData = [];
 
 // Создание одного комментария
 const addComment = (comment) => {

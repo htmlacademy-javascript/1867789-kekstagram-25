@@ -1,7 +1,7 @@
 import {getRandomPositiveInteger, getRandomArrayElement} from './util.js';
 
 // Objects
-const DESCRIPTION_TEXT = [
+const DESCRIPTION_TEXTS = [
   'Сижу у костра, играю на гитаре.',
   'Красивый закат!',
   'Поездка к любимому, давно этого ждала',
@@ -16,7 +16,7 @@ const COMMENTS_TEXT = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
-const USER_NAME = [
+const USER_NAMES = [
   'Иван',
   'Марго',
   'Алиса',
@@ -26,14 +26,14 @@ const USER_NAME = [
   'Александр',
   'Василиса'
 ];
-let ID = 1;
 const OBJECTS_COUNT = 25;
+let ID = 1;
 
 const CREATE_COMMENTS = () => ([{
   id: getRandomPositiveInteger(1,500),
   avatar: `img/avatar-${getRandomPositiveInteger(1,6)}.svg`,
   message: getRandomArrayElement(COMMENTS_TEXT),
-  name: getRandomArrayElement(USER_NAME),
+  name: getRandomArrayElement(USER_NAMES),
 }]);
 
 const createNewObject = () => {
@@ -41,7 +41,7 @@ const createNewObject = () => {
   return {
     id: currentID,
     url: `photos/${currentID}.jpg`,
-    description: getRandomArrayElement(DESCRIPTION_TEXT),
+    description: getRandomArrayElement(DESCRIPTION_TEXTS),
     likes: getRandomPositiveInteger(15,200),
     comments: CREATE_COMMENTS(),
   };
