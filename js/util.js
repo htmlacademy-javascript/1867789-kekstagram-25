@@ -11,15 +11,9 @@ const getRandomArrayElement = (elements) => (
 );
 
 // Функция для проверки максимальной длины строки
-const MAX_SYMBOLS = 140;
-function controlComment (commentFieldText) {
-  if (commentFieldText.length <= MAX_SYMBOLS) {
-    return true;
-  }
-  return false;
-}
-controlComment ('i love cats');
+const getLength = (stringChecked, maxLength) => stringChecked.length <= maxLength;
 
+// Функция Esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 // Показ сообщения об отправке с ошибкой на 5 секунд
@@ -45,5 +39,26 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+// Функция перемешивания массива
+const mixPicturesArray = (array) => {
+  let k;
+  let template;
+  for (let i = array.length - 1; i > 0; i--) {
+    k = Math.floor(Math.random() * (i + 1));
+    template = array[k];
+    array[k] = array[i];
+    array[i] = template;
+  }
+  return array;
+};
 
-export {getRandomPositiveInteger, getRandomArrayElement, isEscapeKey, showAlert};
+// debounce списка фотографий
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {getRandomPositiveInteger, getRandomArrayElement, isEscapeKey, showAlert, getLength, mixPicturesArray, debounce};

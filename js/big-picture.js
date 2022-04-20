@@ -1,15 +1,6 @@
-<<<<<<< Updated upstream
-=======
-/* eslint-disable no-alert */
-/* eslint-disable no-use-before-define */
-import {dataPhotos} from './data.js';
->>>>>>> Stashed changes
 import {isEscapeKey} from './util.js';
 
 const MAX_COMMENTS_COUNT = 5;
-let commentData = [];
-let commentsData = [];
-
 const bigPicture = document.querySelector('.big-picture');
 const bodyContainer = document.querySelector('body');
 const userModalCloseElement = document.querySelector('.big-picture__cancel');
@@ -21,6 +12,8 @@ const socialCaption = document.querySelector('.social__caption');
 const socialComments = document.querySelector('.social__comments');
 const socialCommentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
+let commentData = [];
+let commentDataRemain = [];
 
 // Создание одного комментария
 const addComment = (comment) => {
@@ -38,7 +31,6 @@ const createCommentFragment = (commentArray) => {
     const newComment = addComment(comment);
     fragment.appendChild(newComment);
   });
-<<<<<<< Updated upstream
   socialComments.appendChild(fragment);
 };
 
@@ -60,29 +52,10 @@ const closeFullView = () => {
 
 //Проверка текущего числа комментариев
 const getCurentCountComment = (comments) => comments ? comments.children.length: 0;
-=======
-  commentBigPicture.appendChild(newCommentsFragment);
-}
-// Создание функции для заполнения данными
-function createDataBigPicture ({url, likes, comments, description}) {
-  bigPicture.querySelector('.big-picture__img img').src = url;
-  bigPicture.querySelector('.likes-count').textContent = likes;
-  bigPicture.querySelector('.comments-count').textContent = comments.length;
-  bigPicture.querySelector('.social__caption').textContent = description;
-}
-// function createDataBigPicture () {
-//   .forEach(({url, likes, comments, description}) => {
-//     bigPicture.querySelector('.big-picture__img img').src = url;
-//     bigPicture.querySelector('.likes-count').textContent = likes;
-//     bigPicture.querySelector('.comments-count').textContent = comments.length;
-//     bigPicture.querySelector('.social__caption').textContent = description;
-//   });
-// }
->>>>>>> Stashed changes
 
 // Загрузка комментариев
 const clickCommentsLoader = () => {
-  createCommentFragment(commentsData);
+  createCommentFragment(commentDataRemain);
   socialCommentCount.firstChild.textContent = `${getCurentCountComment(socialComments)} из `;
   if (commentData.length === 0 || commentData.length) {
     commentsLoader.classList.add('hidden');
@@ -114,7 +87,7 @@ const createDataBigPicture = (photo) => {
   // addComment(photo.comments[0]);
   socialCommentCount.firstChild.textContent = `${MAX_COMMENTS_COUNT} из `;
   commentData = photo.comments.slice();
-  commentsData = commentData.slice(MAX_COMMENTS_COUNT);
+  commentDataRemain = commentData.slice(MAX_COMMENTS_COUNT);
 
   if (photo.comments.length <= MAX_COMMENTS_COUNT) {
     socialCommentCount.firstChild.textContent = `${photo.comments.length} из `;

@@ -1,6 +1,6 @@
-/* eslint-disable no-use-before-define */
 import {isEscapeKey} from './util.js';
 
+const DEFAULT_VALUE = 100;
 const form = document.querySelector('.img-upload__form');
 const uploadFile = document.querySelector('#upload-file');
 const imageEditing = document.querySelector('.img-upload__overlay');
@@ -21,47 +21,51 @@ const errorMessage = document.querySelector('.error');
 const errorMessageButton = document.querySelector('.error__button');
 const errorInner = document.querySelector('.error__inner');
 const uploadButton = document.querySelector('.img-upload__submit');
-const DEFAULT_VALUE = 100;
 
-// если фокус находится в поле ввода хэш-тега,
 // нажатие на Esc не должно приводить к закрытию формы редактирования изображения.
 const onImageEscPress = (evt) =>{
   if(isEscapeKey(evt) && evt.target !== textHashtags && evt.target !== comments) {
     evt.preventDefault();
+    // eslint-disable-next-line no-use-before-define
     onOverlayClose(onImageEscPress);
   }
 };
-// Cоздание функции для закрытия редактирования изображения
-const onCancelClick = () => {
-  onOverlayClose(onImageEscPress);
-};
+
 // Функция для открытия окна редактирования изображения
 const onOverlayOpen = () => {
-  imageEditing.classList.remove('hidden');
   body.classList.add('modal-open');
-  body.addEventListener('keydown', onImageEscPress);
+  imageEditing.classList.remove('hidden');
+  document.addEventListener('keydown', onImageEscPress);
   uploadCancel.addEventListener('click', onCancelClick);
   scaleInput.value = `${DEFAULT_VALUE}%`;
   imagePreview.style.transform = `scale(${(parseInt(scaleInput.value, 10)/100)})`;
   image.style.filter = '';
   effectLevel.classList.add('hidden');
+  const pristineError = document.querySelector('.pristine-error');
+  if (pristineError) {
+    pristineError.textContent = '';
+  }
 };
+
 // Обработчик на открытие окна редактирования
 const openImageEdit = () => {onOverlayOpen();};
-// Загрузка файла
-const uploudFileImage = () => {
-  uploadFile.addEventListener('change', openImageEdit);
-};
-uploudFileImage();
+
+uploadFile.addEventListener('change', openImageEdit);
+
 
 // Закрытие формы
 const onOverlayClose = () => {
   imageEditing.classList.add('hidden');
   body.classList.remove('modal-open');
   form.reset();
-  body.removeEventListener('keydown', onImageEscPress);
+  document.removeEventListener('keydown', onImageEscPress);
   uploadCancel.removeEventListener('click', onCancelClick);
 };
+// Cоздание функции для закрытия редактирования изображения
+function onCancelClick () {
+  onOverlayClose();
+}
+
 // Создание фрагмента сообщения
 const createMessage = (template) => {
   const statusMessage = template.cloneNode(true);
@@ -69,10 +73,19 @@ const createMessage = (template) => {
   fragment.appendChild(statusMessage);
   body.appendChild(fragment);
 };
+
 // Создание сообщения об успешной отправке формы
 const createSuccessMessage = () => {
   createMessage(successTemplate);
 };
+
+// Закрытие сообщения об успешной отправке
+const closeSuccessMessage = () => {
+  successMessageButton.removeEventListener('click', onSuccessMessageClose);
+  document.removeEventListener('keydown', onSuccessMessageEsc);
+  body.removeChild(successMessage);
+};
+
 // Обработчик на закрытие сообщения об успешной отправке
 function onSuccessMessageClose () {
   closeSuccessMessage();
@@ -81,28 +94,22 @@ function onSuccessMessageClose () {
 function onSuccessMessageEsc (evt) {
   isEscapeKey(evt, closeSuccessMessage);
 }
-// Закрытие сообщения об успешной отправке
-const closeSuccessMessage = () => {
-  successMessageButton.removeEventListener('click', onSuccessMessageClose);
-  body.removeEventListener('keydown', onSuccessMessageEsc);
-  body.removeChild(successMessage);
-};
 
 // Разблокировка и блокировка кнопок отправки
 const unblockSubmitButton = () => {
   uploadButton.disabled = false;
-  uploadButton.textContent = 'Сохранить';
+  uploadButton.textContent = 'Опубликовать';
 };
 
 const blockSubmitButton = () => {
   uploadButton.disabled = true;
-  uploadButton.textContent = 'Сохраняю...';
+  uploadButton.textContent = 'В процессе публикации...';
 };
 
 // Обработчик на закрытие об успешной отправки формы
 const onSuccessCloseForm = () => {
   createSuccessMessage();
-  body.addEventListener('keydown', onSuccessMessageEsc);
+  document.addEventListener('keydown', onSuccessMessageEsc);
   successMessageButton.addEventListener('click', onSuccessMessageClose);
   successMessage.addEventListener('click', (evt) => {
     if (evt.target !== successInner) {
@@ -116,24 +123,28 @@ const createErrorMessage = () => {
   onOverlayClose();
   createMessage(errorTemplate);
 };
-// Обработчик на закрытие сообщения об ошибки при отправке формы
-function onErrorMessageClose () {
-  closeErrorMessage();
-}
-// Обработчик закрытия сообщения об ошибки при отправке формы Esc
-function onErrorMessageEsc (evt) {
-  isEscapeKey(evt, closeSuccessMessage);
-}
+
 // Закрытие сообщения об ошибки при отправке формы
 const closeErrorMessage = () => {
   errorMessageButton.addEventListener('click', onErrorMessageClose);
   document.removeEventListener('keydown', onErrorMessageEsc);
   body.removeChild(errorMessage);
 };
+
+// Обработчик на закрытие сообщения об ошибки при отправке формы
+function onErrorMessageClose () {
+  closeErrorMessage();
+}
+
+// Обработчик закрытия сообщения об ошибки при отправке формы Esc
+function onErrorMessageEsc (evt) {
+  isEscapeKey(evt, closeSuccessMessage);
+}
+
 // Обработчик закрытия на сообщение об ошибке при отправке формы
 const onErrorCloseForm = () => {
   createErrorMessage();
-  body.addEventListener('keydown', onErrorMessageEsc);
+  document.addEventListener('keydown', onErrorMessageEsc);
   errorMessageButton.addEventListener('click', onErrorMessageClose);
   errorInner.addEventListener('click', (evt) => {
     if (evt.target !== errorInner) {
@@ -142,4 +153,4 @@ const onErrorCloseForm = () => {
   });
 };
 
-export {onCancelClick, onOverlayClose, unblockSubmitButton, onErrorCloseForm, blockSubmitButton, onSuccessCloseForm};
+export {onCancelClick, onOverlayClose, onErrorCloseForm, blockSubmitButton, unblockSubmitButton, onSuccessCloseForm};
