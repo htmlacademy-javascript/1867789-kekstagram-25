@@ -11,15 +11,9 @@ const getRandomArrayElement = (elements) => (
 );
 
 // Функция для проверки максимальной длины строки
-const MAX_SYMBOLS = 140;
-function controlComment (commentFieldText) {
-  if (commentFieldText.length <= MAX_SYMBOLS) {
-    return true;
-  }
-  return false;
-}
-controlComment ('i love cats');
+const getLength = (stringChecked, maxLength) => stringChecked.length <= maxLength;
 
+// Функция Esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 // Показ сообщения об отправке с ошибкой на 5 секунд
@@ -46,4 +40,4 @@ const showAlert = (message) => {
 };
 
 
-export {getRandomPositiveInteger, getRandomArrayElement, isEscapeKey, showAlert};
+export {getRandomPositiveInteger, getRandomArrayElement, isEscapeKey, showAlert, getLength};

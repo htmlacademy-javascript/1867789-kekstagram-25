@@ -1,9 +1,6 @@
 import {isEscapeKey} from './util.js';
 
 const MAX_COMMENTS_COUNT = 5;
-let commentData = [];
-let commentsData = [];
-
 const bigPicture = document.querySelector('.big-picture');
 const bodyContainer = document.querySelector('body');
 const userModalCloseElement = document.querySelector('.big-picture__cancel');
@@ -15,6 +12,8 @@ const socialCaption = document.querySelector('.social__caption');
 const socialComments = document.querySelector('.social__comments');
 const socialCommentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
+let commentData = [];
+let commentDataRemain = [];
 
 // Создание одного комментария
 const addComment = (comment) => {
@@ -56,7 +55,7 @@ const getCurentCountComment = (comments) => comments ? comments.children.length:
 
 // Загрузка комментариев
 const clickCommentsLoader = () => {
-  createCommentFragment(commentsData);
+  createCommentFragment(commentDataRemain);
   socialCommentCount.firstChild.textContent = `${getCurentCountComment(socialComments)} из `;
   if (commentData.length === 0 || commentData.length) {
     commentsLoader.classList.add('hidden');
@@ -88,7 +87,7 @@ const createDataBigPicture = (photo) => {
   // addComment(photo.comments[0]);
   socialCommentCount.firstChild.textContent = `${MAX_COMMENTS_COUNT} из `;
   commentData = photo.comments.slice();
-  commentsData = commentData.slice(MAX_COMMENTS_COUNT);
+  commentDataRemain = commentData.slice(MAX_COMMENTS_COUNT);
 
   if (photo.comments.length <= MAX_COMMENTS_COUNT) {
     socialCommentCount.firstChild.textContent = `${photo.comments.length} из `;
