@@ -39,5 +39,26 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+// Функция перемешивания массива
+const mixPicturesArray = (array) => {
+  let k;
+  let template;
+  for (let i = array.length - 1; i > 0; i--) {
+    k = Math.floor(Math.random() * (i + 1));
+    template = array[k];
+    array[k] = array[i];
+    array[i] = template;
+  }
+  return array;
+};
 
-export {getRandomPositiveInteger, getRandomArrayElement, isEscapeKey, showAlert, getLength};
+// debounce списка фотографий
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {getRandomPositiveInteger, getRandomArrayElement, isEscapeKey, showAlert, getLength, mixPicturesArray, debounce};
