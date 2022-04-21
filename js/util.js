@@ -6,10 +6,6 @@ const getRandomPositiveInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const getRandomArrayElement = (elements) => (
-  elements[getRandomPositiveInteger(0, elements.length - 1)]
-);
-
 // Функция для проверки максимальной длины строки
 const getLength = (stringChecked, maxLength) => stringChecked.length <= maxLength;
 
@@ -61,4 +57,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-export {getRandomPositiveInteger, getRandomArrayElement, isEscapeKey, showAlert, getLength, mixPicturesArray, debounce};
+export {getRandomPositiveInteger, isEscapeKey, showAlert, getLength, mixPicturesArray, debounce};

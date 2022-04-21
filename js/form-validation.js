@@ -107,7 +107,6 @@ pristine.addValidator(textHashtags, (value) => {
   if (value.match(HashtagsOptions.IS_HASH_SYMBOL) || value.length === 0) {
     return true;
   }
-  return false;
 }, ErrorMessages.TOO_SHORT);
 
 // Проверка количества введенных хештегов не более 5
@@ -126,7 +125,7 @@ pristine.addValidator(textHashtags, () => {
 
 // Проверка длины строки ввода комментария
 const validateComment = (value) => (
-  getLength(value, commentText.MAX_LENGTH)
+  getLength(value, CommentsField.MAX_LENGTH)
 );
 pristine.addValidator(commentText, validateComment, ErrorMessages.COMMENT_LONG);
 
